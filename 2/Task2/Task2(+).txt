@@ -1,0 +1,44 @@
+Создать классы – ServerSocketThread и SocketThread, соответственно слушателям, то
+есть реализовать в классе конструкторы с возможностью сохранения ссылки на слушателей.
+Создать экземпляр ServerSocketThread из объекта ChatServer, а SocketThread
+из ClientGUI. На данном этапе, не важно, где именно будут создаваться эти объекты.
+
+Решение:
+
+package Task2;
+
+public class ServerSocketThread {
+    private ServerSocketThreadListener listener;
+
+    public ServerSocketThread(ServerSocketThreadListener listener) {
+        this.listener = listener;
+    }
+}
+
+package Task2;
+
+public class SocketThread {
+    private final SocketThreadListener listener;
+
+    public SocketThread(SocketThreadListener listener) {
+    this.listener = listener;
+    }
+}
+
+// Server
+private ServerSocketThread server;
+
+public void start() {
+    if (isServerWorking) {
+    listener.onMessageReceived("Server is already working");
+    return;
+    }
+    server = new ServerSocketThread(this);
+    listener.onMessageReceived("Server started");
+    isServerWorking = true;
+}
+
+//Client
+private void connect() {
+    SocketThread socketThread = new SocketThread(this);
+}
